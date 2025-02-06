@@ -94,7 +94,7 @@ def data_extraction(llm, state: State):
     ]
     structure_llm = llm.with_structured_output(MOFCollection)
     response = structure_llm.invoke(message)
-    print("RESPONSE", response.model_dump_json())
+    print("RESPONSE", response)
     return {"messages": [response.model_dump_json()]}
 
 def construct_graph(tools: list, llm: ChatOpenAI):
