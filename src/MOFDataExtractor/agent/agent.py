@@ -5,7 +5,7 @@ from MOFDataExtractor.tools.load_models import load_openai_model
 from MOFDataExtractor.tools.data_extractor import convert_pdfs_to_text
 from MOFDataExtractor.models.MOFCrystalData import MOFCollection
 from MOFDataExtractor.graph.graph import construct_graph
-
+from MOFDataExtractor.tools.save_json import save_to_json
 class MOFDataExtractorAgent:
     def __init__(
             self,
@@ -16,7 +16,7 @@ class MOFDataExtractorAgent:
             temperature= 0            
     ):
         try:
-            if model_name in ["gpt-3.5-turbo", "gpt-4o-mini"]:
+            if model_name in ["gpt-3.5-turbo", "gpt-4o-mini", "gpt-4o"]:
                 llm = load_openai_model(model_name=model_name, api_key=api_key, temperature=temperature)
                 print(f"Loaded {model_name}")
 

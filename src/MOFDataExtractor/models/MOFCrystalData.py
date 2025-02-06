@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import List
 class MOFData(BaseModel):
-    """Formatted response for crystal structure from an LLM """
+    "Formatted response for crystal structure from an LLM "
     name: str = Field(default="", description="The name of the material")
     a: float = Field(default=0, description="The cell parameter a in Angstrom")
     b: float = Field(default=0, description="The cell parameter b in Angstrom")
@@ -13,5 +13,6 @@ class MOFData(BaseModel):
     other_names: List[str] = Field(default=[], description="Other names of the material mentioned in the text")
 
 class MOFCollection(BaseModel):
-    """Formatted response for material data from an LLM """
+    "Formatted response for material data from an LLM "
     materials: List[MOFData] = Field(default=[], description="The list of materials")
+
