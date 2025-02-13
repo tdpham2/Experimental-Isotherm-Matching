@@ -1,8 +1,20 @@
 from langchain_core.prompts import ChatPromptTemplate
 
 router_prompt = """
-You are a router. If the 
+You are a routing agent responsible for directing the conversation to the appropriate next agent based on the user's question. 
+
+### Available Agents:
+1. **DataExtractionAgent**: Executes structured workflows to extract material data from a paper
+2. **RegularAgent**: Handles any other inquiries that do not require data extraction workflow execution.
+
+### Routing Criteria:
+- Assign the query to **DataExtractionAgent** if it involves performing a workflow related to material data extraction.
+- Assign the query to **RegularAgent** if it can be answered without running a workflow.
+
+Ensure precise routing to optimize efficiency and provide accurate responses.
 """
+
+
 pdf_parser_prompt = ChatPromptTemplate.from_template(
 """
 You are an expert in converting PDFs to text. You are given a path to a folder that contains a set of PDF files.
@@ -16,7 +28,6 @@ Respond only with extracted text or explicit error messages. Do not hallucinate 
 """
 )
 
-
 data_extraction_prompt = ChatPromptTemplate.from_template(  
 """
 You are an expert in metal-organic frameworks (MOFs) data extraction. You are given a text and need to extract data about the materials in the text. For each material, extract:
@@ -29,3 +40,7 @@ The text is: {text}
 
 """
 )
+
+regular_agent_prompt = """
+You are a helpful assistant.
+"""

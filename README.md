@@ -35,6 +35,7 @@ pip install .
   - `langgraph>=0.2.59`
   - `langchain-openai>=0.2.12,<0.3`
   - `pandas>=2.2`
+  - `jupyter`
 
 ## Usage
 After installation, you can use the **MOFDataExtractor** agent to extract crystal data from MOF-related PDFs. Ensure the system is configured to point to the target PDF file before execution.

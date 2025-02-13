@@ -30,6 +30,7 @@ class MOFDataExtractorAgent:
     def construct_graph(self):
         self.graph = construct_graph(tools=self.tools, llm=self.llm)
         return self.graph
+    
     def run(self, query):
         graph = self.construct_graph()
         inputs = {"messages": [("user", query)]}
@@ -39,9 +40,28 @@ class MOFDataExtractorAgent:
                 print(message)
             else:
                 message.pretty_print()
-    def runq(self, query):
-        messages = self.llm.invoke(query)
-        print(messages)
-        return messages
+    def visualize(self):
+        graph = self.construct_graph()
+        
+        import nest_asyncio
+        from IPython.display import Image, display
+        from langchain_core.runnables.graph import CurveStyle, MermaidDrawMethod, NodeStyles
+
+        nest_asyncio.apply()  # Required for Jupyter Notebook to run async functions
+
+        display(
+            Image(
+                graph.get_graph().draw_mermaid_png(
+                    curve_style=CurveStyle.LINEAR,
+                    node_colors=NodeStyles(first="#ffdfba", last="#baffc9", default="#fad7de"),
+                    wrap_label_n_words=9,
+                    output_file_path=None,
+                    draw_method=MermaidDrawMethod.PYPPETEER,
+                    background_color="white",
+                    padding=6,
+                )
+            )
+        )                
+
 
 
