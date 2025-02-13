@@ -6,8 +6,8 @@ graph = agent.construct_graph()
 path_to_pdf = "/Users/tpham2/work/projects/Experimental_isotherm_project/paper_storage"
 
 list_of_dois = os.listdir(path_to_pdf)
-doi_names = [doi for doi in list_of_dois if doi.startswith("10.1039")]
-#doi_names = ["10.1021ic901456k"]
+#doi_names = [doi for doi in list_of_dois if doi.startswith("10.1039")]
+doi_names = ["10.1021ic0609249"]
 path_to_isodb = "/Users/tpham2/work/projects/Experimental_isotherm_project/Experimental-Isotherm-Matching/nist-isodb/Library/"
 
 for doi in doi_names:
@@ -27,7 +27,7 @@ for doi in doi_names:
         if adsorbent not in adsorbents:
             adsorbents.append(adsorbent)
     try:
-        query = f"What are the crystallographic information of {adsorbents} in {path_to_pdf}/{doi}"
+        query = f"What are the crystallographic information of the materials in {path_to_pdf}/{doi}"
         inputs = {"messages": query, "question": query}
         for s in graph.stream(inputs, stream_mode="values"):
             message = s["messages"][-1]
@@ -44,6 +44,7 @@ for doi in doi_names:
                 f.write(final_output.__str__())
 
         print(f"Final output saved to {output_file}")
-    except:
+    except Exception as e:
+        print(e)
         with open("log.txt", "a") as f:
             f.write(f"{doi}\n")
